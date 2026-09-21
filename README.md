@@ -220,6 +220,10 @@ If you find this repository useful, please consider citing our paper:
 
 ## 🙏 **Acknowledgments**
 
+This project uses the following datasets:<br>
+VGGSound (<a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" style="color:#007bff; text-decoration:none;">CC BY 4.0</a>), AudioSet (<a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" style="color:#007bff; text-decoration:none;">CC BY 4.0</a>), AVSpeech (<a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" style="color:#007bff; text-decoration:none;">CC BY 4.0</a>), Condensed Movies (<a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" style="color:#007bff; text-decoration:none;">CC BY 4.0</a>), WavCaps (research-only), ACAVCaps (<a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" style="color:#dc3545; text-decoration:none;">CC BY-NC 4.0</a>), MUSIC-AVQA (<a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" style="color:#dc3545; text-decoration:none;">CC BY-NC 4.0</a>), and AVSBench (<a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" style="color:#dc3545; text-decoration:none;">CC BY-NC 4.0</a>).<br>
+All resources are used for <strong>academic and non-commercial demonstration purposes only</strong>.
+
 This project is inspired by the following works:<br>
 [stable-audio-tools](https://github.com/Stability-AI/stable-audio-tools), [MMAudio](https://github.com/hkchengrex/MMAudio), [MMAudioSep](https://github.com/sony/mmaudiosep), [Make-An-Audio 2](https://github.com/bytedance/Make-An-Audio-2), [Synchformer](https://github.com/v-iashin/Synchformer), and [BigVGAN](https://github.com/NVIDIA/BigVGAN).<br>
 Thanks for their contributions.
