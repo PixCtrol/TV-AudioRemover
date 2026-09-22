@@ -204,9 +204,9 @@ TV-AudioRemover achieves state-of-the-art performance on both objective and subj
 
 > **Human evaluation metrics:** TRC measures target removal completeness; BP measures preservation of non-target background audio; TN measures temporal smoothness and naturalness; OQ measures overall listening quality. AC is their weighted composite score, and ASR is the percentage of samples that succeed across all four dimensions.
 
-### Comparison with Audio-Visual Editing Models
+### Comparison with Commercial Audio-Visual Editing Models
 
-We further compare TV-AudioRemover with selected audio-visual editing systems on AV-Remove-Bench. TV-AudioRemover achieves the strongest target sound suppression, preserved-source fidelity, and audio instruction compliance, while remaining competitive in audio-visual consistency.
+We further compare TV-AudioRemover with commercial audio-visual editing systems on AV-Remove-Bench. TV-AudioRemover achieves the strongest target sound suppression, preserved-source fidelity, and audio instruction compliance, while remaining competitive in audio-visual consistency.
 
 <table>
   <thead>
