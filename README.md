@@ -3,13 +3,13 @@
 # TV-AudioRemover: Joint Text‑Visual Guided Sound Removal with Multi‑Task Hard‑Mixture Curriculum
 
 <p align="center">
-  <a href="xxx" style="text-decoration:none"><img src="https://img.shields.io/badge/arXiv-2506.21448-b31b1b.svg" alt="arXiv"/></a>
+  <img src="https://img.shields.io/badge/arXiv-Coming%20Soon-b31b1b.svg?logo=arxiv&logoColor=white" alt="arXiv Coming Soon"/>
   &nbsp;
-  <a href="https://github.com/PixCtrol/TV-AudioRemover" style="text-decoration:none"><img src="https://img.shields.io/badge/GitHub.io-Code-blue?logo=Github&style=flat-square" alt="GitHub"/></a>
+  <a href="https://yjx-research.github.io/TV-AudioRemover/" style="text-decoration:none"><img src="https://img.shields.io/badge/Demo%20Page-Explore-2ea44f.svg?logo=githubpages&logoColor=white" alt="Demo Page"/></a>
   &nbsp;
-  <a href="https://yjx-research.github.io/TV-AudioRemover/" style="text-decoration:none"><img src="https://img.shields.io/badge/Demo Page-Demo-blue" alt="Demo Page"/></a>
+  <a href="https://github.com/PixCtrol/TV-AudioRemover" style="text-decoration:none"><img src="https://img.shields.io/badge/GitHub-Code-blue.svg?logo=github&logoColor=white" alt="GitHub Repository"/></a>
   &nbsp;
-  <a href="xxx" style="text-decoration:none"><img src="https://img.shields.io/badge/HuggingFace-Models-orange?logo=huggingface" alt="Hugging Face"/></a>
+  <img src="https://img.shields.io/badge/Models-Coming%20Soon-ffd21e.svg?logo=huggingface&logoColor=black" alt="Hugging Face Models Coming Soon"/>
 </p>
 
 </div>
@@ -17,6 +17,14 @@
 <p align="center">
 If you find this project useful, please consider giving a star ⭐️~
 </p>
+
+## 📣 **Updates**
+
+- [x] **Technical report** — Released with the full method, data construction pipeline, evaluation benchmark, and experimental results.
+- [x] **[Demo Page](https://yjx-research.github.io/TV-AudioRemover/)** — Available with intuitive side-by-side target sound removal comparisons between TV-AudioRemover and all evaluated baseline models.
+- [ ] **Training and inference code** — Coming soon.
+- [ ] **Model weights** — Coming soon.
+- [ ] **AV-Remove-Bench** — Coming soon, including the benchmark samples and evaluation protocol.
 
 
 <div align="center">
@@ -52,11 +60,13 @@ If you find this project useful, please consider giving a star ⭐️~
 
 ## 🎧 **Overview**
 
-**TV-AudioRemover** is a target sound removal system tailored for audio-visual media requiring sound elimination. It leverages the visually edited video together with a natural-language instruction to suppress the sound associated with the removed visual object from the original audio mixture. Built on a multimodal diffusion Transformer (MM-DiT) with flow-matching, TV-AudioRemover generates cleaned audio at 44.1 kHz that removes the target sound while preserving the remaining audio.
+**TV-AudioRemover** is a target sound removal system for selectively eliminating unwanted sounds while preserving the rest of an audio mixture. Its primary use case is soundtrack cleanup after visual object removal: given a visually edited video, the original mixed audio, and a natural-language instruction, it suppresses the sound associated with the removed visual object. Built on a multimodal diffusion Transformer (MM-DiT) with flow matching, TV-AudioRemover generates cleaned audio at 44.1 kHz.
+
+Beyond visually edited videos, the same selective sound-removal capability opens up broader application scenarios, including removing off-screen voice-overs or narration, text-guided editing of audio-only content, and soundtrack-only removal of an in-frame sound from an otherwise unedited video. These use cases enable flexible cleanup of speech, music, and sound effects without muting or regenerating the entire soundtrack.
 
 <hr style="border: none; border-top: 3px solid #333; margin: 16px 0;">
 
-## 🎨 **Tease Figure**
+## 🎨 **Teaser Figure**
 
 <div align="center">
     <img src="assets/teaser.png" width="60%">
@@ -70,10 +80,10 @@ If you find this project useful, please consider giving a star ⭐️~
 ## 🚀 **Key Features**
 
 - **Visual-Text Guided Sound Removal** — Remove the sound of a visually deleted object using both the edited video and a text instruction for precise multimodal control.
+- **Flexible Application Scenarios** — Extend selective sound removal to off-screen voice-over or narration cleanup, text-guided audio-only editing, and in-frame sound removal from videos whose visuals remain unchanged.
 - **Multi-Task Capability** — Supports extraction (keep target), deletion (remove target), and joint preserve-remove modes via generalized instruction modeling.
-- **Plug-and-Play Design** — Works as a downstream audio remover accepting outputs from arbitrary visual object removal methods (SVOR, ROSE, EffectErase, UnderEraser, etc.).
-- **Million-Scale Data Construction Pipeline** — A dedicated pipeline combining MLLM tagging (Qwen3-Omni), SAM Audio separation, and quality filtering (CLAP + SAJ) to construct high-quality single-object audio-visual aligned samples and synthesize task-specific mixture-target pairs.
-- **AV-Remove-Bench** — The first audio-visual target removal benchmark with comprehensive scene diversity and broad acoustic coverage, equipped with dedicated objective metrics (TSSR, PSF) and an MLLM-based evaluation protocol.
+- **Million-Scale Data Construction Pipeline** — A scalable, quality-controlled pipeline for constructing high-quality single-object audio-visual aligned samples and synthesizing task-specific mixture-target pairs across speech, music, and sound effects.
+- **AV-Remove-Bench** — The first audio-visual target removal benchmark with comprehensive scene diversity and broad acoustic coverage, equipped with two removal-specific objective metrics introduced in this work—Target Source Suppression Ratio (TSSR) and Preserved Source Fidelity (PSF)—along with an MLLM-based evaluation protocol.
 
 <hr style="border: none; border-top: 3px solid #333; margin: 16px 0;">
 
@@ -137,24 +147,53 @@ We present **AV-Remove-Bench**, the first audio-visual target removal benchmark 
 
 TV-AudioRemover achieves state-of-the-art performance on both objective and subjective metrics across audio-visual joint editing models and audio-editing models on AV-Remove Bench.
 
+### Metric Guide
+
+- **Audio quality and separation:** **IS** measures overall audio quality and diversity, while **SAJ Overall** measures perceptual source-separation quality.
+- **Target removal and source preservation:** **TSSR** measures how effectively the target sound is suppressed, while **PSF** measures how faithfully non-target sounds are preserved.
+- **Instruction following and audio fidelity:** **Instr. Comp.<sub>a</sub>** measures whether the requested target sound is removed, while **Fidelity<sub>a</sub>** evaluates the naturalness and preservation of the remaining audio.
+- **Audio-visual consistency:** **IB-AV** measures semantic correspondence between the edited audio and video, while **DeSync** estimates their temporal offset. Higher is better for all metrics except **DeSync**, where lower is better.
+
 ### Objective Evaluation
 
-| Group | Method | IS ↑ | SAJ ↑ | TSSR ↑ | PSF ↑ | Instr. Comp.<sub>a</sub> ↑ | Fidelity<sub>a</sub> ↑ | IB-AV ↑ | DeSync ↓ |
-|-------|--------|------|-------|--------|-------|----------------|------------|---------|----------|
-| T-AV | AVI-Edit | 3.16 | 2.24 | 0.260 | 0.958 | 3.56 | 2.57 | 19.22 | 0.77 |
-| T-AV | InstructAV2AV | 3.45 | 2.60 | -0.288 | 0.986 | 2.65 | 3.04 | 14.81 | 0.76 |
-| T-A | ZETA | 3.27 | 2.95 | 0.571 | 1.054 | 3.69 | 3.22 | 18.71 | 0.75 |
-| T-A | Audio-Omni | 2.15 | 2.20 | 0.496 | 0.901 | 4.39 | 1.68 | 8.23 | 1.13 |
-| T-A | UNISON | 3.63 | 2.77 | -0.239 | 0.999 | 4.27 | 3.44 | 18.00 | 0.78 |
-| VT-A | SAM Audio | 3.29 | 3.50 | 0.134 | 0.969 | 4.38 | 3.10 | 18.47 | 0.90 |
-| VT-A | **TV-AudioRemover (Ours)** | **3.55** | **3.46** | **0.635** | **1.079** | **4.79** | **3.96** | **27.32** | **0.60** |
+<table>
+  <thead>
+    <tr>
+      <th rowspan="2" align="center">Group</th>
+      <th rowspan="2" align="left">Method</th>
+      <th colspan="2" align="center">Audio Quality &amp; Separation</th>
+      <th colspan="2" align="center">Target Removal &amp; Preservation</th>
+      <th colspan="2" align="center">Instruction Following &amp; Audio Fidelity</th>
+      <th colspan="2" align="center">Audio-Visual Consistency</th>
+    </tr>
+    <tr>
+      <th align="center">IS ↑</th>
+      <th align="center">SAJ ↑</th>
+      <th align="center">TSSR ↑</th>
+      <th align="center">PSF ↑</th>
+      <th align="center">Instr. Comp.<sub>a</sub> ↑</th>
+      <th align="center">Fidelity<sub>a</sub> ↑</th>
+      <th align="center">IB-AV ↑</th>
+      <th align="center">DeSync ↓</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td align="center">T-AV</td><td>AVI-Edit</td><td align="center">3.16</td><td align="center">2.24</td><td align="center">0.260</td><td align="center">0.958</td><td align="center">3.56</td><td align="center">2.57</td><td align="center">19.22</td><td align="center">0.77</td></tr>
+    <tr><td align="center">T-AV</td><td>InstructAV2AV</td><td align="center">3.45</td><td align="center">2.60</td><td align="center">-0.288</td><td align="center">0.986</td><td align="center">2.65</td><td align="center">3.04</td><td align="center">14.81</td><td align="center">0.76</td></tr>
+    <tr><td align="center">T-A</td><td>ZETA</td><td align="center">3.27</td><td align="center">2.95</td><td align="center">0.571</td><td align="center">1.054</td><td align="center">3.69</td><td align="center">3.22</td><td align="center">18.71</td><td align="center">0.75</td></tr>
+    <tr><td align="center">T-A</td><td>Audio-Omni</td><td align="center">2.15</td><td align="center">2.20</td><td align="center">0.496</td><td align="center">0.901</td><td align="center">4.39</td><td align="center">1.68</td><td align="center">8.23</td><td align="center">1.13</td></tr>
+    <tr><td align="center">T-A</td><td>UNISON</td><td align="center"><strong>3.63</strong></td><td align="center">2.77</td><td align="center">-0.239</td><td align="center">0.999</td><td align="center">4.27</td><td align="center">3.44</td><td align="center">18.00</td><td align="center">0.78</td></tr>
+    <tr><td align="center">VT-A</td><td>SAM Audio</td><td align="center">3.23</td><td align="center">2.42</td><td align="center">0.354</td><td align="center">1.007</td><td align="center">3.70</td><td align="center">3.90</td><td align="center">17.89</td><td align="center">0.93</td></tr>
+    <tr><td align="center">VT-A</td><td><strong>TV-AudioRemover (Ours)</strong></td><td align="center">3.55</td><td align="center"><strong>3.46</strong></td><td align="center"><strong>0.635</strong></td><td align="center"><strong>1.079</strong></td><td align="center"><strong>4.79</strong></td><td align="center"><strong>3.96</strong></td><td align="center"><strong>27.32</strong></td><td align="center"><strong>0.60</strong></td></tr>
+  </tbody>
+</table>
 
 > Group: **T-AV** = audio-visual joint removal; **T-A** = audio-only editing (no visual condition); **VT-A** = visual-text conditioned audio-only editing.
 
 ### Human Subjective Evaluation
 
 | Method | TRC ↑ | BP ↑ | TN ↑ | OQ ↑ | AC ↑ | ASR ↑ |
-|--------|-------|------|------|------|------|-------|
+|:-------|:-----:|:----:|:----:|:----:|:----:|:-----:|
 | AVI-Edit | 0.51 | 0.32 | 0.35 | 0.35 | 39.37 | 21.43% |
 | InstructAV2AV | 0.38 | 0.43 | 0.28 | 0.31 | 37.20 | 18.86% |
 | ZETA | 0.42 | 0.63 | 0.55 | 0.55 | 53.36 | 36.69% |
@@ -163,40 +202,39 @@ TV-AudioRemover achieves state-of-the-art performance on both objective and subj
 | SAM Audio | 0.86 | 0.83 | 0.89 | 0.88 | 85.72 | 81.58% |
 | **TV-AudioRemover (Ours)** | **0.98** | **0.89** | **0.94** | **0.95** | **93.80** | **97.40%** |
 
-> TRC = Target Removal Completeness, BP = Background Preservation, TN = Temporal Naturalness, OQ = Overall Quality, AC = Audio Composite Score, ASR = Audio Success Rate.
+> **Human evaluation metrics:** TRC measures target removal completeness; BP measures preservation of non-target background audio; TN measures temporal smoothness and naturalness; OQ measures overall listening quality. AC is their weighted composite score, and ASR is the percentage of samples that succeed across all four dimensions.
 
-### Ablation Studies
+### Comparison with Closed-Source Commercial Models
 
-**Training tasks**
+We further compare TV-AudioRemover with commercial audio-visual editing systems on AV-Remove-Bench. TV-AudioRemover achieves the strongest target sound suppression, preserved-source fidelity, and audio instruction compliance, while remaining competitive in audio-visual consistency.
 
-| Setting | SAJ ↑ | TSSR ↑ | PSF ↑ | IB-AV ↑ | DeSync ↓ |
-|---------|-------|--------|-------|---------|----------|
-| Single-task training | 3.11 | 0.52 | 1.04 | 26.90 | 0.69 |
-| **Multi-task training** | **3.46** | **0.64** | **1.08** | **27.32** | **0.60** |
-
-**Training strategy**
-
-| Setting | SAJ ↑ | TSSR ↑ | PSF ↑ | IB-AV ↑ | DeSync ↓ |
-|---------|-------|--------|-------|---------|----------|
-| Single-stage training | 3.22 | 0.48 | 1.05 | 25.17 | 0.62 |
-| **Two-stage training** | **3.46** | **0.64** | **1.08** | **27.32** | **0.60** |
-
-**Input modalities**
-
-| Setting | SAJ ↑ | TSSR ↑ | PSF ↑ | IB-AV ↑ | DeSync ↓ |
-|---------|-------|--------|-------|---------|----------|
-| Text only | 3.46 | 0.63 | 1.07 | 25.02 | 0.63 |
-| Visual only | 2.97 | -0.36 | 1.03 | 26.72 | 0.67 |
-| **Visual + Text** | **3.46** | **0.64** | **1.08** | **27.32** | **0.60** |
-
-**Upstream visual removers**
-
-| Setting | SAJ ↑ | TSSR ↑ | PSF ↑ | IB-AV ↑ | DeSync ↓ |
-|---------|-------|--------|-------|---------|----------|
-| ROSE | 3.29 | 0.63 | 1.07 | 26.07 | 0.77 |
-| EffectErase | 3.22 | 0.55 | 1.07 | 24.21 | 0.89 |
-| UnderEraser | 3.23 | 0.58 | 1.07 | 26.12 | 0.75 |
-| **SVOR** | **3.46** | **0.64** | **1.08** | **27.32** | **0.60** |
+<table>
+  <thead>
+    <tr>
+      <th rowspan="2" align="left">Method</th>
+      <th colspan="2" align="center">Audio Quality &amp; Separation</th>
+      <th colspan="2" align="center">Target Removal &amp; Preservation</th>
+      <th colspan="2" align="center">Instruction Following &amp; Audio Fidelity</th>
+      <th colspan="2" align="center">Audio-Visual Consistency</th>
+    </tr>
+    <tr>
+      <th align="center">IS ↑</th>
+      <th align="center">SAJ ↑</th>
+      <th align="center">TSSR ↑</th>
+      <th align="center">PSF ↑</th>
+      <th align="center">Instr. Comp.<sub>a</sub> ↑</th>
+      <th align="center">Fidelity<sub>a</sub> ↑</th>
+      <th align="center">IB-AV ↑</th>
+      <th align="center">DeSync ↓</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>Seedance 2.0</td><td align="center">3.36</td><td align="center">2.50</td><td align="center">-0.563</td><td align="center">0.970</td><td align="center">3.17</td><td align="center">3.83</td><td align="center">23.71</td><td align="center">0.58</td></tr>
+    <tr><td>Seedance 2.5</td><td align="center">2.85</td><td align="center">2.93</td><td align="center">0.363</td><td align="center">1.0588</td><td align="center">4.36</td><td align="center">4.11</td><td align="center"><strong>30.66</strong></td><td align="center"><strong>0.49</strong></td></tr>
+    <tr><td>MiniMax H3</td><td align="center">3.30</td><td align="center">2.25</td><td align="center">0.076</td><td align="center">1.0588</td><td align="center">3.41</td><td align="center"><strong>4.30</strong></td><td align="center">23.52</td><td align="center">0.64</td></tr>
+    <tr><td><strong>TV-AudioRemover (Ours)</strong></td><td align="center"><strong>3.55</strong></td><td align="center"><strong>3.46</strong></td><td align="center"><strong>0.635</strong></td><td align="center"><strong>1.079</strong></td><td align="center"><strong>4.79</strong></td><td align="center">3.96</td><td align="center">27.32</td><td align="center">0.60</td></tr>
+  </tbody>
+</table>
 
 <hr style="border: none; border-top: 3px solid #333; margin: 16px 0;">
 
