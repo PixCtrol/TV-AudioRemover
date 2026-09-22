@@ -5,7 +5,7 @@
 <p align="center">
   <img src="https://img.shields.io/badge/arXiv-Coming%20Soon-b31b1b.svg?logo=arxiv&logoColor=white" alt="arXiv Coming Soon"/>
   &nbsp;
-  <a href="https://yjx-research.github.io/TV-AudioRemover/" style="text-decoration:none"><img src="https://img.shields.io/badge/Demo%20Page-Explore-2ea44f.svg?logo=githubpages&logoColor=white" alt="Demo Page"/></a>
+  <a href="https://yjx-research.github.io/TV-AudioRemover/" style="text-decoration:none"><img src="https://img.shields.io/badge/Demo%20Page-Explore-4285f4.svg?logo=googlechrome&logoColor=white" alt="Demo Page"/></a>
   &nbsp;
   <a href="https://github.com/PixCtrol/TV-AudioRemover" style="text-decoration:none"><img src="https://img.shields.io/badge/GitHub-Code-blue.svg?logo=github&logoColor=white" alt="GitHub Repository"/></a>
   &nbsp;
@@ -22,7 +22,7 @@ If you find this project useful, please consider giving a star ⭐️~
 
 - [x] **Technical report** — Released with the full method, data construction pipeline, evaluation benchmark, and experimental results.
 - [x] **[Demo Page](https://yjx-research.github.io/TV-AudioRemover/)** — Available with intuitive side-by-side target sound removal comparisons between TV-AudioRemover and all evaluated baseline models.
-- [ ] **Training and inference code** — Coming soon.
+- [ ] **Inference code** — Coming soon.
 - [ ] **Model weights** — Coming soon.
 - [ ] **AV-Remove-Bench** — Coming soon, including the benchmark samples and evaluation protocol.
 
@@ -204,9 +204,9 @@ TV-AudioRemover achieves state-of-the-art performance on both objective and subj
 
 > **Human evaluation metrics:** TRC measures target removal completeness; BP measures preservation of non-target background audio; TN measures temporal smoothness and naturalness; OQ measures overall listening quality. AC is their weighted composite score, and ASR is the percentage of samples that succeed across all four dimensions.
 
-### Comparison with Closed-Source Commercial Models
+### Comparison with Audio-Visual Editing Models
 
-We further compare TV-AudioRemover with commercial audio-visual editing systems on AV-Remove-Bench. TV-AudioRemover achieves the strongest target sound suppression, preserved-source fidelity, and audio instruction compliance, while remaining competitive in audio-visual consistency.
+We further compare TV-AudioRemover with selected audio-visual editing systems on AV-Remove-Bench. TV-AudioRemover achieves the strongest target sound suppression, preserved-source fidelity, and audio instruction compliance, while remaining competitive in audio-visual consistency.
 
 <table>
   <thead>
