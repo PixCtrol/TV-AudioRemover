@@ -3,7 +3,7 @@
 # TV-AudioRemover: Joint Text‑Visual Guided Sound Removal with Multi‑Task Hard‑Mixture Curriculum
 
 <p align="center">
-  <img src="https://img.shields.io/badge/arXiv-Coming%20Soon-b31b1b.svg?logo=arxiv&logoColor=white" alt="arXiv Coming Soon"/>
+  <a href="https://arxiv.org/abs/2609.25864" style="text-decoration:none"><img src="https://img.shields.io/badge/arXiv-2609.25864-b31b1b.svg?logo=arxiv&logoColor=white" alt="arXiv"/></a>
   &nbsp;
   <a href="https://yjx-research.github.io/TV-AudioRemover/" style="text-decoration:none"><img src="https://img.shields.io/badge/Demo%20Page-Explore-4285f4.svg?logo=googlechrome&logoColor=white" alt="Demo Page"/></a>
   &nbsp;
@@ -20,7 +20,7 @@ If you find this project useful, please consider giving a star ⭐️~
 
 ## 📣 **Updates**
 
-- [x] **Technical report** — Released with the full method, data construction pipeline, evaluation benchmark, and experimental results.
+- [x] **[Technical report](https://arxiv.org/abs/2609.25864)** — Released on arXiv with the full method, data construction pipeline, evaluation benchmark, and experimental results.
 - [x] **[Demo Page](https://yjx-research.github.io/TV-AudioRemover/)** — Available with intuitive side-by-side target sound removal comparisons between TV-AudioRemover and all evaluated baseline models.
 - [ ] **Inference code** — Coming soon.
 - [ ] **Model weights** — Coming soon.
@@ -243,14 +243,14 @@ We further compare TV-AudioRemover with commercial audio-visual editing systems 
 If you find this repository useful, please consider citing our paper:
 
 ```bibtex
-@misc{xxx,
-  title={Cxxx}, 
-  author={xxx},
-  year={xxx},
-  eprint={xxx},
+@misc{guo2026tvaudioremoverjointtextvisualguided,
+  title={TV-AudioRemover: Joint Text-Visual Guided Sound Removal with Multi-Task Hard-Mixture Curriculum},
+  author={Xinyue Guo and Jianxuan Yang and Daiguo Zhou and Jiagao Hu and Yuxuan Chen and Fei Wang and Jian Luan},
+  year={2026},
+  eprint={2609.25864},
   archivePrefix={arXiv},
-  primaryClass={xxx},
-  url={xxx}, 
+  primaryClass={cs.MM},
+  url={https://arxiv.org/abs/2609.25864},
 }
 ```
 
