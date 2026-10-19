@@ -83,7 +83,7 @@ Beyond visually edited videos, the same selective sound-removal capability opens
 - **Flexible Application Scenarios** — Extend selective sound removal to off-screen voice-over or narration cleanup, text-guided audio-only editing, and in-frame sound removal from videos whose visuals remain unchanged.
 - **Multi-Task Capability** — Supports extraction (keep target), deletion (remove target), and joint preserve-remove modes via generalized instruction modeling.
 - **Million-Scale Data Construction Pipeline** — A scalable, quality-controlled pipeline for constructing high-quality single-object audio-visual aligned samples and synthesizing task-specific mixture-target pairs across speech, music, and sound effects.
-- **AV-Remove-Bench** — The first audio-visual target removal benchmark with comprehensive scene diversity and broad acoustic coverage, equipped with two removal-specific objective metrics introduced in this work—Target Source Suppression Ratio (TSSR) and Preserved Source Fidelity (PSF)—along with an MLLM-based evaluation protocol.
+- **AV-Remove-Bench** — An audio-visual target removal benchmark with comprehensive scene diversity and broad acoustic coverage, equipped with two removal-specific objective metrics introduced in this work—Target Source Suppression Ratio (TSSR) and Preserved Source Fidelity (PSF)—along with an MLLM-based evaluation protocol.
 
 <hr style="border: none; border-top: 3px solid #333; margin: 16px 0;">
 
@@ -110,7 +110,7 @@ To acquire high-quality training data, we devise a pipeline to construct a milli
 
 ## 📊 **AV-Remove-Bench**
 
-We present **AV-Remove-Bench**, the first audio-visual target removal benchmark with comprehensive scene diversity and broad acoustic coverage. It contains 77 audio-visual clips (~6 seconds each) covering speech, music, and sound effects.
+We present **AV-Remove-Bench**, An audio-visual target removal benchmark with comprehensive scene diversity and broad acoustic coverage. It contains 77 audio-visual clips (~6 seconds each) covering speech, music, and sound effects.
 
 **Data Sources:**
 - **Public datasets** — MUSIC-AVQA (music), AVSpeech (speech), Condensed Movies / AVSBench / VGGSound-test (sound effects)
@@ -145,10 +145,11 @@ We present **AV-Remove-Bench**, the first audio-visual target removal benchmark 
 
 ## 📈 **Performance**
 
-TV-AudioRemover achieves state-of-the-art performance on both objective and subjective metrics across audio-visual joint editing models and audio-editing models on AV-Remove Bench.
+TV-AudioRemover achieves state-of-the-art performance on both subjective and objective metrics for text-only-guided and text-visual-guided audio removal tasks.
 
 ### Metric Guide
 
+- **Rubric-based evaluation metrics of MMAE:** **IFR** measures instruction compliance for audio editing, **CR** evaluates preservation consistency of unmodified audio content, while **EMR** quantifies the exact-match success rate where all rubric criteria are fully satisfied.
 - **Audio quality and separation:** **IS** measures overall audio quality and diversity, while **SAJ Overall** measures perceptual source-separation quality.
 - **Target removal and source preservation:** **TSSR** measures how effectively the target sound is suppressed, while **PSF** measures how faithfully non-target sounds are preserved.
 - **Instruction following and audio fidelity:** **Instr. Comp.<sub>a</sub>** measures whether the requested target sound is removed, while **Fidelity<sub>a</sub>** evaluates the naturalness and preservation of the remaining audio.
@@ -156,6 +157,27 @@ TV-AudioRemover achieves state-of-the-art performance on both objective and subj
 
 ### Objective Evaluation
 
+**Table 1: Objective results on the MMAE removal subset.**
+<table>
+  <thead>
+    <tr>
+      <th align="center">Method</th>
+      <th align="center">Instruction Following ↑</th>
+      <th align="center">Consistency ↑</th>
+      <th align="center">Exact Match ↑</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td align="center">ZETA</td><td align="center">58.99</td><td align="center">42.70</td><td align="center">0.00</td></tr>
+    <tr><td align="center">MMEdit</td><td align="center">51.70</td><td align="center"><strong>82.47</strong></td><td align="center">10.42</td></tr>
+    <tr><td align="center">Audio-Omni</td><td align="center">48.51</td><td align="center">56.49</td><td align="center">2.08</td></tr>
+    <tr><td align="center">UNISON</td><td align="center"><u>72.19</u></td><td align="center">73.77</td><td align="center"><u>20.83</u></td></tr>
+    <tr><td align="center"><strong>TV-AudioRemover</strong></td><td align="center"><strong>76.77</strong></td><td align="center"><u>82.25</u></td><td align="center"><strong>22.92</strong></td></tr>
+  </tbody>
+</table>
+
+
+**Table 2: Objective quantitative comparison on AV-Remove-Bench.**
 <table>
   <thead>
     <tr>
@@ -178,13 +200,14 @@ TV-AudioRemover achieves state-of-the-art performance on both objective and subj
     </tr>
   </thead>
   <tbody>
-    <tr><td align="center">T-AV</td><td>AVI-Edit</td><td align="center">3.16</td><td align="center">2.24</td><td align="center">0.260</td><td align="center">0.958</td><td align="center">3.56</td><td align="center">2.57</td><td align="center">19.22</td><td align="center">0.77</td></tr>
-    <tr><td align="center">T-AV</td><td>InstructAV2AV</td><td align="center">3.45</td><td align="center">2.60</td><td align="center">-0.288</td><td align="center">0.986</td><td align="center">2.65</td><td align="center">3.04</td><td align="center">14.81</td><td align="center">0.76</td></tr>
-    <tr><td align="center">T-A</td><td>ZETA</td><td align="center">3.27</td><td align="center">2.95</td><td align="center">0.571</td><td align="center">1.054</td><td align="center">3.69</td><td align="center">3.22</td><td align="center">18.71</td><td align="center">0.75</td></tr>
-    <tr><td align="center">T-A</td><td>Audio-Omni</td><td align="center">2.15</td><td align="center">2.20</td><td align="center">0.496</td><td align="center">0.901</td><td align="center">4.39</td><td align="center">1.68</td><td align="center">8.23</td><td align="center">1.13</td></tr>
-    <tr><td align="center">T-A</td><td>UNISON</td><td align="center"><strong>3.63</strong></td><td align="center">2.77</td><td align="center">-0.239</td><td align="center">0.999</td><td align="center">4.27</td><td align="center">3.44</td><td align="center">18.00</td><td align="center">0.78</td></tr>
-    <tr><td align="center">VT-A</td><td>SAM Audio</td><td align="center">3.23</td><td align="center">2.42</td><td align="center">0.354</td><td align="center">1.007</td><td align="center">3.70</td><td align="center">3.90</td><td align="center">17.89</td><td align="center">0.93</td></tr>
-    <tr><td align="center">VT-A</td><td><strong>TV-AudioRemover (Ours)</strong></td><td align="center">3.55</td><td align="center"><strong>3.46</strong></td><td align="center"><strong>0.635</strong></td><td align="center"><strong>1.079</strong></td><td align="center"><strong>4.79</strong></td><td align="center"><strong>3.96</strong></td><td align="center"><strong>27.32</strong></td><td align="center"><strong>0.60</strong></td></tr>
+    <tr><td align="center">T-AV</td><td>AVI-Edit</td><td align="center">3.16</td><td align="center">2.24</td><td align="center">2.60</td><td align="center">9.58</td><td align="center">3.56</td><td align="center">2.57</td><td align="center">19.22</td><td align="center">0.77</td></tr>
+    <tr><td align="center">T-AV</td><td>InstructAV2AV</td><td align="center">3.45</td><td align="center">2.60</td><td align="center">-2.88</td><td align="center">9.86</td><td align="center">2.65</td><td align="center">3.04</td><td align="center">14.81</td><td align="center">0.76</td></tr>
+    <tr><td align="center">T-A</td><td>ZETA</td><td align="center">3.27</td><td align="center">2.95</td><td align="center">5.71</td><td align="center">10.54</td><td align="center">3.69</td><td align="center">3.22</td><td align="center">18.71</td><td align="center">0.75</td></tr>
+    <tr><td align="center">T-A</td><td>Audio-Omni</td><td align="center">2.15</td><td align="center">2.20</td><td align="center">4.96</td><td align="center">9.01</td><td align="center">4.39</td><td align="center">1.68</td><td align="center">8.23</td><td align="center">1.13</td></tr>
+    <tr><td align="center">T-A</td><td>UNISON</td><td align="center"><strong>3.63</strong></td><td align="center">2.77</td><td align="center">-2.39</td><td align="center">9.99</td><td align="center">4.27</td><td align="center">3.44</td><td align="center">18.00</td><td align="center">0.78</td></tr>
+    <tr><td align="center">VT-A</td><td>SAM Audio</td><td align="center">3.23</td><td align="center">2.42</td><td align="center">3.54</td><td align="center">10.07</td><td align="center">3.70</td><td align="center">3.90</td><td align="center">17.89</td><td align="center">0.93</td></tr>
+    <tr><td align="center">VT-A</td><td>MMAudioSep</td><td align="center">3.48</td><td align="center">2.67</td><td align="center">2.98</td><td align="center">10.15</td><td align="center">3.41</td><td align="center">3.94</td><td align="center">23.49</td><td align="center">0.97</td></tr>
+    <tr><td align="center">VT-A</td><td><strong>TV-AudioRemover (Ours)</strong></td><td align="center">3.55</td><td align="center"><strong>3.46</strong></td><td align="center"><strong>6.35</strong></td><td align="center"><strong>10.79</strong></td><td align="center"><strong>4.79</strong></td><td align="center"><strong>3.96</strong></td><td align="center"><strong>27.32</strong></td><td align="center"><strong>0.60</strong></td></tr>
   </tbody>
 </table>
 
@@ -200,6 +223,7 @@ TV-AudioRemover achieves state-of-the-art performance on both objective and subj
 | Audio-Omni | 0.48 | 0.24 | 0.20 | 0.19 | 30.75 | 11.69% |
 | UNISON | 0.65 | 0.60 | 0.60 | 0.62 | 62.00 | 49.35% |
 | SAM Audio | 0.86 | 0.83 | 0.89 | 0.88 | 85.72 | 81.58% |
+| MMAudioSep | 0.75 | 0.88 | 0.92 | 0.81 | 83.00 | 80.74% |
 | **TV-AudioRemover (Ours)** | **0.98** | **0.89** | **0.94** | **0.95** | **93.80** | **97.40%** |
 
 > **Human evaluation metrics:** TRC measures target removal completeness; BP measures preservation of non-target background audio; TN measures temporal smoothness and naturalness; OQ measures overall listening quality. AC is their weighted composite score, and ASR is the percentage of samples that succeed across all four dimensions.
@@ -229,10 +253,10 @@ We further compare TV-AudioRemover with commercial audio-visual editing systems 
     </tr>
   </thead>
   <tbody>
-    <tr><td>Seedance 2.0</td><td align="center">3.36</td><td align="center">2.50</td><td align="center">-0.563</td><td align="center">0.970</td><td align="center">3.17</td><td align="center">3.83</td><td align="center">23.71</td><td align="center">0.58</td></tr>
-    <tr><td>Seedance 2.5</td><td align="center">2.85</td><td align="center">2.93</td><td align="center">0.363</td><td align="center">1.0588</td><td align="center">4.36</td><td align="center">4.11</td><td align="center"><strong>30.66</strong></td><td align="center"><strong>0.49</strong></td></tr>
-    <tr><td>MiniMax H3</td><td align="center">3.30</td><td align="center">2.25</td><td align="center">0.076</td><td align="center">1.0588</td><td align="center">3.41</td><td align="center"><strong>4.30</strong></td><td align="center">23.52</td><td align="center">0.64</td></tr>
-    <tr><td><strong>TV-AudioRemover (Ours)</strong></td><td align="center"><strong>3.55</strong></td><td align="center"><strong>3.46</strong></td><td align="center"><strong>0.635</strong></td><td align="center"><strong>1.079</strong></td><td align="center"><strong>4.79</strong></td><td align="center">3.96</td><td align="center">27.32</td><td align="center">0.60</td></tr>
+    <tr><td>Seedance 2.0</td><td align="center">3.36</td><td align="center">2.50</td><td align="center">-5.63</td><td align="center">9.70</td><td align="center">3.17</td><td align="center">3.83</td><td align="center">23.71</td><td align="center">0.58</td></tr>
+    <tr><td>Seedance 2.5</td><td align="center">2.85</td><td align="center">2.93</td><td align="center">3.63</td><td align="center">10.59</td><td align="center">4.36</td><td align="center">4.11</td><td align="center"><strong>30.66</strong></td><td align="center"><strong>0.49</strong></td></tr>
+    <tr><td>MiniMax H3</td><td align="center">3.30</td><td align="center">2.25</td><td align="center">0.76</td><td align="center">9.97</td><td align="center">3.41</td><td align="center"><strong>4.30</strong></td><td align="center">23.52</td><td align="center">0.64</td></tr>
+    <tr><td><strong>TV-AudioRemover (Ours)</strong></td><td align="center"><strong>3.55</strong></td><td align="center"><strong>3.46</strong></td><td align="center"><strong>6.35</strong></td><td align="center"><strong>10.79</strong></td><td align="center"><strong>4.79</strong></td><td align="center">3.96</td><td align="center">27.32</td><td align="center">0.60</td></tr>
   </tbody>
 </table>
 
